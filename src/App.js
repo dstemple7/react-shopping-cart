@@ -20,10 +20,17 @@ function App() {
 		setCart([...cart, item])
 	};
 
+	const removeItem = item => {
+		const newList = cart.filter(cartItem=> {
+			return item.id !== cartItem.id
+		})
+		setCart(newList)
+	}
+
 	return (
 		<div className="App">
 			<ProductContext.Provider value={{products, addItem}}>
-			<CartContext.Provider value={cart}>
+			<CartContext.Provider value={{cart, removeItem}}>
 			<Navigation cart={cart} />
 
 			{/* Routes */}
@@ -32,7 +39,7 @@ function App() {
 			</Route>
 
 			<Route path="/cart">
-				<ShoppingCart cart={cart} />
+				<ShoppingCart cart={cart}/>
 			</Route>
 			</CartContext.Provider>
 			</ProductContext.Provider>
